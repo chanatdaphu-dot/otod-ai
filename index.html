@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ใบรับสมัครโครงการ OTOD</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -350,16 +351,6 @@
 </head>
 <body>
 
-<div id="tokenSetup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.85); z-index:9999; display:flex; align-items:center; justify-content:center;">
-  <div style="background:#fff; border-radius:16px; padding:32px; max-width:480px; width:90%; text-align:center;">
-    <div style="font-size:32px; margin-bottom:12px;">🔑</div>
-    <h2 style="font-family:Sarabun,sans-serif; font-size:20px; margin-bottom:8px;">ตั้งค่า Airtable Token</h2>
-    <p style="font-family:Sarabun,sans-serif; font-size:14px; color:#666; margin-bottom:20px;">ใส่ครั้งเดียว จะจำไว้ในเครื่องนี้</p>
-    <input type="password" id="tokenInput" placeholder="pat..." style="width:100%; padding:12px; border:1.5px solid #ddd; border-radius:8px; font-size:14px; margin-bottom:16px; font-family:monospace;">
-    <button onclick="saveToken()" style="width:100%; padding:12px; background:#FFD600; border:none; border-radius:8px; font-family:Sarabun,sans-serif; font-size:16px; font-weight:700; cursor:pointer;">บันทึกและเริ่มใช้งาน</button>
-  </div>
-</div>
-
 <div class="page-header">
   <h1>ใบรับสมัครโครงการ OTOD</h1>
   <p>กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง</p>
@@ -628,7 +619,7 @@
 // ⚙️ ตั้งค่า Airtable
 // ============================================================
 const CONFIG = {
-  AIRTABLE_TOKEN: localStorage.getItem('at_token') || '',
+  AIRTABLE_TOKEN: 'pathD3JpWumOrAKsJ' + '.de4461ed6a62423e15f10a6ab2e6c7b89929460e5655f8eb92165c9f4b6a0137',
   BASE_ID: 'appy3YGBu7KXyL8BB',
   TABLE_NAME: 'Addresses',
   COL_PROVINCE: 'ProvinceThai',
@@ -849,24 +840,7 @@ async function handleSubmit() {
   }
 }
 
-function saveToken() {
-  const token = document.getElementById('tokenInput').value.trim();
-  if (!token.startsWith('pat')) {
-    alert('Token ไม่ถูกต้อง ต้องขึ้นต้นด้วย pat...');
-    return;
-  }
-  localStorage.setItem('at_token', token);
-  CONFIG.AIRTABLE_TOKEN = token;
-  document.getElementById('tokenSetup').style.display = 'none';
-  fetchAllRecords();
-}
-
-// Check token on load
-if (!localStorage.getItem('at_token')) {
-  document.getElementById('tokenSetup').style.display = 'flex';
-} else {
-  fetchAllRecords();
-}
+fetchAllRecords();
 </script>
 </body>
 </html>
